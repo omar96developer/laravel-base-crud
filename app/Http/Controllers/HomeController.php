@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Comic;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
+        $comic = Comic::all();
+        return view('index', compact('comic'));
     }
 
     /**
@@ -23,7 +25,8 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
+        
     }
 
     /**
@@ -34,7 +37,13 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $newComic = new Comic;
+        $newComic->title = $data['title'];
+        $newComic->save();
+
+        return redirect()->route('show', $newComic->id);
     }
 
     /**
@@ -43,9 +52,9 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comic $comic)
     {
-        //
+        return view('show', compact('comic'));
     }
 
     /**
