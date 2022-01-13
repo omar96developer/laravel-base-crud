@@ -11,8 +11,16 @@
     <ul>
         <li>
             <a href="{{route('show', $comic->id)}}">{{$comic['title']}}</a>
-            
+            <a href="{{route('edit', $comic->id)}}">Modifica</a>
+            <form action="{{route('destroy', ['id' => $comic->id])}}" method="post">
+                @csrf
+                @method('delete')
+                <input type="submit" value="Cancella">
+
+            </form>
+      
         </li>
     </ul>
+    <a href="{{route('create')}}"></a>
 </body>
 </html>

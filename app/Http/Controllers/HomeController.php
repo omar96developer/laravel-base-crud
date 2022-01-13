@@ -25,8 +25,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        return view('create');
-        
+        return view('create');       
     }
 
     /**
@@ -63,9 +62,9 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comic $comic)
     {
-        //
+        return view('edit', compact('comic'));
     }
 
     /**
@@ -75,9 +74,13 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        $data = $request->all();
+        $comic->update($data);
+
+        return redirect()->route('show', $comic->id);
+
     }
 
     /**
@@ -86,8 +89,9 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+        return redirect('index');
     }
 }

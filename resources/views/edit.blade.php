@@ -7,6 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-      <h1>{{$comic['title']}}</h1>
+    <form action="{{route('update', ['id => $comic->id'])}}" method="post">
+        @csrf
+        @method('PUT')
+
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" value="{{$comic->title}}">
+    </form>
 </body>
 </html>
